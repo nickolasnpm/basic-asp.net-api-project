@@ -10,3 +10,5 @@ This project is a good exposure for me to learn the following topics:
 5. Password Hashing and Salting
 6. Database (MS SQL) and Migration
 7. Implementation fo Interface
+
+The link to the udemy course: https://www.udemy.com/course/build-rest-apis-with-aspnet-core-web-api-entity-framework/ 
