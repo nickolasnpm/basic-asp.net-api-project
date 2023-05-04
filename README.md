@@ -1,4 +1,4 @@
-# udemy-api-project
+# basic-asp.net-api-project
 ## This project is developed and polished by me as I follow the course taught by Sameer Saini in Udemy.
 
 This project is a good exposure for me to learn the following topics:
