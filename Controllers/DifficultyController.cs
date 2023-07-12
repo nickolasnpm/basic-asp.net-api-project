@@ -1,92 +1,117 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using System.Data;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc; 
 using UdemyProject.Models.Domain;
 using UdemyProject.Models.DTO;
 using UdemyProject.Repositories;
 
 namespace UdemyProject.Controllers
-{
+{ 
     [ApiController]
     [Route("[controller]")]
     public class DifficultyController : Controller
     {
         private readonly IDifficultyRepository _difficultyRepository;
-        private readonly IMapper _mapper;
-        public DifficultyController(IDifficultyRepository difficultyRepository, IMapper mapper)
+        private readonly ILogger<DifficultyController> _logger;
+        public DifficultyController(IDifficultyRepository difficultyRepository, ILogger<DifficultyController> logger)
         {
             _difficultyRepository = difficultyRepository;
-            _mapper = mapper;
+            _logger = logger;
         }
 
         [HttpGet]
         [Authorize(Roles = "reader,writer")]
         public async Task<IActionResult> GetAllDifficulty()
         {
-            IEnumerable<DifficultyDomain> difficulty = await _difficultyRepository.GetAllAsync();
-
-            IEnumerable<DifficultyDTO> difficultyDTO = _mapper.Map<List<Models.DTO.DifficultyDTO>>(difficulty);
-
-            return Ok(difficultyDTO);
+            try
+            {
+                _logger.LogInformation("GetAllDifficulty is executed");
+                IEnumerable<DifficultyDomain> difficulty = await _difficultyRepository.GetAllAsync();
+                return Ok(difficulty);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, e.Message);
+                return BadRequest(e);
+            }
         }
 
         [HttpGet]
         [Route("{id:guid}")]
-        [ActionName("GetWalkDifficulty")]
         [Authorize(Roles = "reader,writer")]
         public async Task<IActionResult> GetDifficultyAsync(Guid id)
         {
-            DifficultyDomain? difficulty = await _difficultyRepository.GetAsync(id);
-
-            if(difficulty == null)
+            try
             {
-                return NotFound();
+                _logger.LogInformation("GetDifficultyAsync is executed");
+
+                DifficultyDomain? difficulty = await _difficultyRepository.GetAsync(id);
+
+                if (difficulty == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(difficulty);
             }
-
-            DifficultyDTO walkdifficultyDTO = _mapper.Map<Models.DTO.DifficultyDTO>(difficulty);
-
-            return Ok(walkdifficultyDTO);
+            catch (Exception e)
+            {
+                _logger.LogError(e, e.Message);
+                return BadRequest(e);
+            }
+            
         }
 
         [HttpPost]
         [Authorize(Roles = "writer")]
-        public async Task<IActionResult> AddDifficulty(Models.DTO.AddDifficultyRequest addDifficultyRequest)
+        public async Task<IActionResult> AddDifficulty(DifficultyDTO difficultyDTO)
         {
-
-            DifficultyDomain? difficulty = new Models.Domain.DifficultyDomain
+            try
             {
-                Code = addDifficultyRequest.Code,
-            };
+                _logger.LogInformation("Addifficulty is executed");
 
-            difficulty = await _difficultyRepository.AddAsync(difficulty);
+                DifficultyDomain? difficulty = new DifficultyDomain
+                {
+                    Code = difficultyDTO.Code,
+                };
 
-            DifficultyDTO? difficultyDTO = _mapper.Map<Models.DTO.DifficultyDTO>(difficulty);
-
-            return CreatedAtAction("GetWalkDifficulty", new { id = difficultyDTO.DifficultyId }, difficultyDTO);
+                difficulty = await _difficultyRepository.AddAsync(difficulty);
+                return Ok(difficulty);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, e.Message);
+                return BadRequest(e);
+            }
         }
 
         [HttpPut]
         [Route("{id:guid}")]
         [Authorize(Roles = "writer")]
-        public async Task<IActionResult> UpdateDifficulty(Guid id, Models.DTO.UpdateDifficultyRequest updateDifficultyRequest)
+        public async Task<IActionResult> UpdateDifficulty(Guid id, DifficultyDTO difficultyDTO)
         {
-            
-            DifficultyDomain? difficulty = new Models.Domain.DifficultyDomain
-            { 
-                Code = updateDifficultyRequest.Code
-            };
-
-            difficulty = await _difficultyRepository.UpdateAsync(id, difficulty);
-
-            if (difficulty == null)
+            try
             {
-                return NotFound();
-            }
-            
-            DifficultyDTO? difficultyDTO = _mapper.Map<Models.DTO.DifficultyDTO>(difficulty);
+                _logger.LogInformation("UpdateDifficulty is executed");
 
-            return Ok(difficultyDTO);
+                DifficultyDomain? difficulty = new DifficultyDomain
+                {
+                    Code = difficultyDTO.Code
+                };
+
+                difficulty = await _difficultyRepository.UpdateAsync(id, difficulty);
+
+                if (difficulty == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(difficulty);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, e.Message);
+                return BadRequest(e);
+            }
         }
 
         [HttpDelete] 
@@ -94,15 +119,24 @@ namespace UdemyProject.Controllers
         [Authorize(Roles = "writer")]
         public async Task<IActionResult> DeleteWalkDifficulty(Guid id)
         {
-            DifficultyDomain? difficulty = await _difficultyRepository.DeleteAsync(id);
-
-            if (difficulty == null)
+            try
             {
-                return NotFound();
-            }
+                _logger.LogInformation("DeleteWalkDifficulty is executed");
 
-            DifficultyDTO? difficultyDTO = _mapper.Map<Models.DTO.DifficultyDTO>(difficulty);
-            return Ok(difficultyDTO);
+                DifficultyDomain? difficulty = await _difficultyRepository.DeleteAsync(id);
+
+                if (difficulty == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(difficulty);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, e.Message);
+                return BadRequest(e);
+            }
         }
     }
 }

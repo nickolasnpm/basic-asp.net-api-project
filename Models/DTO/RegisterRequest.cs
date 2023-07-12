@@ -8,12 +8,14 @@ namespace UdemyProject.Models.DTO
 
         [Required]
         [StringLength(100)]
-        public string FirstName { get; set; }
+        public string FirstName { get; set; }   
 
         [Required]
         [StringLength(100)]
         public string LastName { get; set; }
-        public List<RoleList> Roles { get; set; }
+
+        [Required]
+        public List<RolesList> Roles { get; set; }
 
         [Required]
         [StringLength(100)]

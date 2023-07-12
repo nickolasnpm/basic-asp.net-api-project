@@ -6,7 +6,3 @@
         public string Password { get; set; }
     }
 }
-
-// users:
-// "username": "benzema@user",
-// "password": "qwerASDF1234_"

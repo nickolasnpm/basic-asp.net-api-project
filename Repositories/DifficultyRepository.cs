@@ -35,12 +35,11 @@ namespace UdemyProject.Repositories
         {
             DifficultyDomain? existingDifficulty = await _dbContextClasses.DifficultyTable.FindAsync(Userid);
 
-            if (existingDifficulty == null)
+            if (existingDifficulty != null)
             {
-                return null;
+                existingDifficulty.Code = DifficultyDomain.Code;
             }
 
-            existingDifficulty.Code = DifficultyDomain.Code;
             await _dbContextClasses.SaveChangesAsync();
             return existingDifficulty;
         }
@@ -49,14 +48,11 @@ namespace UdemyProject.Repositories
         {
             DifficultyDomain? DifficultyDomain = await _dbContextClasses.DifficultyTable.FindAsync(Userid);
 
-            if (DifficultyDomain == null)
+            if (DifficultyDomain != null)
             {
-                return null;
-               
+                _dbContextClasses.DifficultyTable.Remove(DifficultyDomain);
+                _dbContextClasses.SaveChanges();
             }
-            
-            _dbContextClasses.DifficultyTable.Remove(DifficultyDomain);
-            _dbContextClasses.SaveChanges();
             return DifficultyDomain;
         }
     }

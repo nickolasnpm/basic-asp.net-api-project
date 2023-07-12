@@ -25,102 +25,79 @@ namespace UdemyProject.Controllers
         public async Task<IActionResult> RegisterAsync (Models.DTO.RegisterRequest registerRequest)
         {
 
-            _userRepository.CreatePasswordHash(registerRequest.Password, out byte[] PasswordHash, out byte[] PasswordSalt);
-            // Password hashing and salting
+            #region Create userDomain property
 
-            UsersDomain? userDomain = new UsersDomain()
-            {
-                FirstName = registerRequest.FirstName,
-                LastName = registerRequest.LastName,
-                PasswordHash = PasswordHash,
-                PasswordSalt = PasswordSalt
-            };
-            // pass the value to UsersDomain
+            UsersDomain? userDomain = new UsersDomain();
 
-            #region Check Email Address
+            // get reference email from database
             List<string> checkEmail = new List<string>();
-
             foreach (var email in _dBContextClass.UsersTable)
             {
                 checkEmail.Add(email.EmailAddress);
             }
 
+            // check the email existence 
             if(checkEmail.Contains(registerRequest.EmailAddress))
             {
                 return BadRequest("Email Address Already Exists");
             }
             else
             {
-                userDomain.EmailAddress = registerRequest.EmailAddress;
-            }
+                _userRepository.CreatePasswordHash(registerRequest.Password, out byte[] PasswordHash, out byte[] PasswordSalt);
 
-            #endregion
-
-            #region Check Username
-            List<string> checkUsername = new List<string>();
-
-            foreach(var username in _dBContextClass.UsersTable)
-            {
-                checkUsername.Add(username.Username);
-                // add all username that exists in UsersTable to list checkUsername
-            }
-
-            if(checkUsername.Contains(registerRequest.Username))
-            {
-                return BadRequest("Username Already Exists");
-                // If the username already esist, return this
-            }
-            else
-            {
+                userDomain.FirstName = registerRequest.FirstName;
+                userDomain.LastName = registerRequest.LastName;
                 userDomain.Username = registerRequest.Username;
-                // if the username does not exist, create new one
+                userDomain.EmailAddress = registerRequest.EmailAddress;
+                userDomain.PasswordHash = PasswordHash;
+                userDomain.PasswordSalt = PasswordSalt;
+                
             }
-            #endregion
 
-            #region Check Roles
-            List<string> checkRoles = new List<string>();
-
+            // get the role list from registerRequest
+            List<string> checkRoles = new();
             registerRequest.Roles.ForEach(roleInput =>
             {
                 checkRoles.Add(roleInput.Title);
             });
 
+            // create new userDomain property object
             userDomain.Roles = checkRoles;
             userDomain = await _userRepository.RegisterUser(userDomain);
+            
+            #endregion
 
-            List<string> checkRolesDB = new List<string>();
-
-            foreach (var existingRole in _dBContextClass.RolesTable)
-            {
-                checkRolesDB.Add(existingRole.Title);
-                // add every roles in the RolesTable to list checkRolesDB
-            }
-
+            #region Create RolesDomain & UsersRolesDomain properties
+            
             RolesDomain? rolesDomain = new RolesDomain();
             UsersRolesDomain? userRolesDomain = new UsersRolesDomain();
 
+            // get reference role from database
+            List<string> checkRolesDB = new List<string>();
+            foreach (var existingRole in _dBContextClass.RolesTable)
+            {
+                checkRolesDB.Add(existingRole.Title);
+            }
+
             foreach (var role in userDomain.Roles)
             {
+                // check if checkRolesDB already contains role inserted by user via userDomain.Roles
                 if (checkRolesDB.Contains(role))
                 {
                     RolesDomain? roleInDatabase = await _dBContextClass.RolesTable.FirstOrDefaultAsync(x => x.Title == role);
-                    // if checkRolesDB contains type of role inserted by user via userDomain.Roles, do this
-
                     rolesDomain.Id = roleInDatabase.Id;
-                    rolesDomain.Title = roleInDatabase.Title;
-                    // pass the value found to this
                 }
                 else
                 {
+                    // if the role does not exist, create new role
                     rolesDomain.Title = role;
                     rolesDomain = await _userRepository.RegisterRole(rolesDomain);
-                    // if checkRolesDB does not contains type of role inserted by user via userDomain.Roles, do this 
-                    // pass the value found to this. Save it into the database
                 }
+                
+                // create new userRolesDomain entry per new registration
                 userRolesDomain.UserID = userDomain.Id;
                 userRolesDomain.RoleID = rolesDomain.Id;
                 userRolesDomain = await _userRepository.RegisterUserRole(userRolesDomain);
-                // create new userRolesDomain entry per new registration
             }
 
             #endregion
@@ -128,25 +105,24 @@ namespace UdemyProject.Controllers
             return Ok(registerRequest);
         }
 
-
         [HttpPost] 
         [Route("login")]
         public async Task<IActionResult> LoginAsync(Models.DTO.LoginRequest loginRequest)
         {
 
-            UsersDomain? authenticatedUser = await _userRepository.AuthenticateAsync(loginRequest.Username);
             // check the existence of inserted username
-
+            UsersDomain? authenticatedUser = await _userRepository.AuthenticateAsync(loginRequest.Username);
+            
             if (authenticatedUser != null)
             {
+                // verify the password hash in the case username exist in database
                 if(!(_userRepository.VerifyPasswordHash(loginRequest.Password, authenticatedUser.PasswordHash, authenticatedUser.PasswordSalt)))
                 {
                     return BadRequest("Wrong Password");
                 }
-                // verify the password hash in the case username exist in database
                 
-                var token = await _tokenHandler.CreateTokenAsync(authenticatedUser); 
                 // create token for user authorization
+                var token = await _tokenHandler.CreateTokenAsync(authenticatedUser);
 
                 return Ok(token); 
             }

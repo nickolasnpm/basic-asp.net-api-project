@@ -37,6 +37,35 @@ namespace UdemyProject.Migrations
                     b.ToTable("DifficultyTable");
                 });
 
+            modelBuilder.Entity("UdemyProject.Models.Domain.ImageDomain", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("FileDescription")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FileExtension")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FileName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FilePath")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("FileSizeInBytes")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ImagesTable");
+                });
+
             modelBuilder.Entity("UdemyProject.Models.Domain.RegionDomain", b =>
                 {
                     b.Property<Guid>("Id")

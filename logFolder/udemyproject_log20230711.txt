@@ -1,0 +1,298 @@
+2023-07-11 14:49:14.282 +08:00 [INF] User profile is available. Using 'C:\Users\Hp\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2023-07-11 14:49:14.622 +08:00 [INF] Now listening on: https://localhost:7227
+2023-07-11 14:49:14.623 +08:00 [INF] Now listening on: http://localhost:5257
+2023-07-11 14:49:14.627 +08:00 [INF] Application started. Press Ctrl+C to shut down.
+2023-07-11 14:49:14.628 +08:00 [INF] Hosting environment: Development
+2023-07-11 14:49:14.629 +08:00 [INF] Content root path: C:\Users\Hp\Desktop\PROJECTS\dotnet\basic-asp.net-api-project\
+2023-07-11 14:49:15.529 +08:00 [INF] Request starting HTTP/2 GET https://localhost:7227/swagger/index.html - -
+2023-07-11 14:49:15.960 +08:00 [INF] Request starting HTTP/2 GET https://localhost:7227/_vs/browserLink - -
+2023-07-11 14:49:15.960 +08:00 [INF] Request starting HTTP/2 GET https://localhost:7227/_framework/aspnetcore-browser-refresh.js - -
+2023-07-11 14:49:15.975 +08:00 [INF] Request finished HTTP/2 GET https://localhost:7227/swagger/index.html - - - 200 - text/html;charset=utf-8 451.7418ms
+2023-07-11 14:49:15.975 +08:00 [INF] Request finished HTTP/2 GET https://localhost:7227/_framework/aspnetcore-browser-refresh.js - - - 200 11994 application/javascript;+charset=utf-8 13.1016ms
+2023-07-11 14:49:16.083 +08:00 [INF] Request finished HTTP/2 GET https://localhost:7227/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 123.0293ms
+2023-07-11 14:49:16.123 +08:00 [INF] Request starting HTTP/2 GET https://localhost:7227/swagger/v1/swagger.json - -
+2023-07-11 14:49:16.249 +08:00 [INF] Request finished HTTP/2 GET https://localhost:7227/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 126.6622ms
+2023-07-11 14:49:47.174 +08:00 [INF] Request starting HTTP/2 POST https://localhost:7227/api/Auth/login application/json-patch+json 63
+2023-07-11 14:49:47.275 +08:00 [INF] Executing endpoint 'UdemyProject.Controllers.AuthController.LoginAsync (UdemyProject)'
+2023-07-11 14:49:47.311 +08:00 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] LoginAsync(UdemyProject.Models.DTO.LoginRequest) on controller UdemyProject.Controllers.AuthController (UdemyProject).
+2023-07-11 14:49:49.557 +08:00 [INF] Executed DbCommand (307ms) [Parameters=[@__username_1='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [u].[Id], [u].[EmailAddress], [u].[FirstName], [u].[LastName], [u].[PasswordHash], [u].[PasswordSalt], [u].[Username]
+FROM [UsersTable] AS [u]
+WHERE [u].[Username] COLLATE SQL_Latin1_General_CP1_CS_AS = @__username_1
+2023-07-11 14:49:49.686 +08:00 [INF] Executed DbCommand (12ms) [Parameters=[@__user_Id_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SELECT [u].[Id], [u].[RoleID], [u].[UserID]
+FROM [UsersRolesTable] AS [u]
+WHERE [u].[UserID] = @__user_Id_0
+2023-07-11 14:49:49.723 +08:00 [INF] Executed DbCommand (4ms) [Parameters=[@__userrole_RoleID_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [r].[Id], [r].[Title]
+FROM [RolesTable] AS [r]
+WHERE [r].[Id] = @__userrole_RoleID_0
+2023-07-11 14:49:49.873 +08:00 [INF] Executing OkObjectResult, writing value of type 'System.String'.
+2023-07-11 14:49:49.898 +08:00 [INF] Executed action UdemyProject.Controllers.AuthController.LoginAsync (UdemyProject) in 2579.4696ms
+2023-07-11 14:49:49.902 +08:00 [INF] Executed endpoint 'UdemyProject.Controllers.AuthController.LoginAsync (UdemyProject)'
+2023-07-11 14:49:49.922 +08:00 [INF] Request finished HTTP/2 POST https://localhost:7227/api/Auth/login application/json-patch+json 63 - 200 - text/plain;+charset=utf-8 2747.0737ms
+2023-07-11 14:50:18.045 +08:00 [INF] Request starting HTTP/2 GET https://localhost:7227/Regions - -
+2023-07-11 14:50:18.113 +08:00 [INF] Executing endpoint 'UdemyProject.Controllers.RegionsController.GetAllRegionsAsync (UdemyProject)'
+2023-07-11 14:50:18.116 +08:00 [INF] Route matched with {action = "GetAllRegions", controller = "Regions"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAllRegionsAsync() on controller UdemyProject.Controllers.RegionsController (UdemyProject).
+2023-07-11 14:50:18.120 +08:00 [INF] GetAllRegionsAsync is executed
+2023-07-11 14:50:18.184 +08:00 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [r].[Id], [r].[Area], [r].[Code], [r].[Lat], [r].[Long], [r].[Name], [r].[Population]
+FROM [RegionTable] AS [r]
+2023-07-11 14:50:18.203 +08:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[UdemyProject.Models.Domain.RegionDomain, UdemyProject, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2023-07-11 14:50:18.243 +08:00 [INF] Executed action UdemyProject.Controllers.RegionsController.GetAllRegionsAsync (UdemyProject) in 125.9952ms
+2023-07-11 14:50:18.245 +08:00 [INF] Executed endpoint 'UdemyProject.Controllers.RegionsController.GetAllRegionsAsync (UdemyProject)'
+2023-07-11 14:50:18.246 +08:00 [INF] Request finished HTTP/2 GET https://localhost:7227/Regions - - - 200 400 application/json;+charset=utf-8 201.2355ms
+2023-07-11 14:50:46.535 +08:00 [INF] Request starting HTTP/2 POST https://localhost:7227/Regions application/json-patch+json 110
+2023-07-11 14:50:46.538 +08:00 [INF] Executing endpoint 'UdemyProject.Controllers.RegionsController.AddRegionAsync (UdemyProject)'
+2023-07-11 14:50:46.542 +08:00 [INF] Route matched with {action = "AddRegion", controller = "Regions"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] AddRegionAsync(UdemyProject.Models.DTO.AddRegionRequest) on controller UdemyProject.Controllers.RegionsController (UdemyProject).
+2023-07-11 14:50:46.586 +08:00 [INF] AddRegionAsync is executed
+2023-07-11 14:50:46.771 +08:00 [INF] Executed DbCommand (9ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = Double), @p2='?' (Size = 4000), @p3='?' (DbType = Double), @p4='?' (DbType = Double), @p5='?' (Size = 4000), @p6='?' (DbType = Int64)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [RegionTable] ([Id], [Area], [Code], [Lat], [Long], [Name], [Population])
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6);
+2023-07-11 14:50:46.788 +08:00 [INF] Executing OkObjectResult, writing value of type 'UdemyProject.Models.Domain.RegionDomain'.
+2023-07-11 14:50:46.790 +08:00 [INF] Executed action UdemyProject.Controllers.RegionsController.AddRegionAsync (UdemyProject) in 245.8642ms
+2023-07-11 14:50:46.791 +08:00 [INF] Executed endpoint 'UdemyProject.Controllers.RegionsController.AddRegionAsync (UdemyProject)'
+2023-07-11 14:50:46.792 +08:00 [INF] Request finished HTTP/2 POST https://localhost:7227/Regions application/json-patch+json 110 - 200 135 application/json;+charset=utf-8 257.0078ms
+2023-07-11 14:50:50.742 +08:00 [INF] Request starting HTTP/2 GET https://localhost:7227/Regions - -
+2023-07-11 14:50:50.744 +08:00 [INF] Executing endpoint 'UdemyProject.Controllers.RegionsController.GetAllRegionsAsync (UdemyProject)'
+2023-07-11 14:50:50.745 +08:00 [INF] Route matched with {action = "GetAllRegions", controller = "Regions"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAllRegionsAsync() on controller UdemyProject.Controllers.RegionsController (UdemyProject).
+2023-07-11 14:50:50.748 +08:00 [INF] GetAllRegionsAsync is executed
+2023-07-11 14:50:50.756 +08:00 [INF] Executed DbCommand (7ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [r].[Id], [r].[Area], [r].[Code], [r].[Lat], [r].[Long], [r].[Name], [r].[Population]
+FROM [RegionTable] AS [r]
+2023-07-11 14:50:50.758 +08:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[UdemyProject.Models.Domain.RegionDomain, UdemyProject, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2023-07-11 14:50:50.759 +08:00 [INF] Executed action UdemyProject.Controllers.RegionsController.GetAllRegionsAsync (UdemyProject) in 12.8408ms
+2023-07-11 14:50:50.760 +08:00 [INF] Executed endpoint 'UdemyProject.Controllers.RegionsController.GetAllRegionsAsync (UdemyProject)'
+2023-07-11 14:50:50.761 +08:00 [INF] Request finished HTTP/2 GET https://localhost:7227/Regions - - - 200 536 application/json;+charset=utf-8 18.7948ms
+2023-07-11 14:51:05.403 +08:00 [INF] Request starting HTTP/2 GET https://localhost:7227/Regions/ec1314af-c879-4919-8e33-19931ad396cb - -
+2023-07-11 14:51:05.405 +08:00 [INF] Executing endpoint 'UdemyProject.Controllers.RegionsController.GetRegionAsync (UdemyProject)'
+2023-07-11 14:51:05.410 +08:00 [INF] Route matched with {action = "GetRegion", controller = "Regions"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetRegionAsync(System.Guid) on controller UdemyProject.Controllers.RegionsController (UdemyProject).
+2023-07-11 14:51:05.413 +08:00 [INF] GetRegionsAsync is executed
+2023-07-11 14:51:05.420 +08:00 [INF] Executed DbCommand (2ms) [Parameters=[@__UserID_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [r].[Id], [r].[Area], [r].[Code], [r].[Lat], [r].[Long], [r].[Name], [r].[Population]
+FROM [RegionTable] AS [r]
+WHERE [r].[Id] = @__UserID_0
+2023-07-11 14:51:05.422 +08:00 [INF] Executing OkObjectResult, writing value of type 'UdemyProject.Models.Domain.RegionDomain'.
+2023-07-11 14:51:05.423 +08:00 [INF] Executed action UdemyProject.Controllers.RegionsController.GetRegionAsync (UdemyProject) in 12.1176ms
+2023-07-11 14:51:05.424 +08:00 [INF] Executed endpoint 'UdemyProject.Controllers.RegionsController.GetRegionAsync (UdemyProject)'
+2023-07-11 14:51:05.425 +08:00 [INF] Request finished HTTP/2 GET https://localhost:7227/Regions/ec1314af-c879-4919-8e33-19931ad396cb - - - 200 135 application/json;+charset=utf-8 21.7600ms
+2023-07-11 14:51:29.949 +08:00 [INF] Request starting HTTP/2 PUT https://localhost:7227/Regions/ec1314af-c879-4919-8e33-19931ad396cb application/json-patch+json 110
+2023-07-11 14:51:29.953 +08:00 [INF] Executing endpoint 'UdemyProject.Controllers.RegionsController.UpdateRegionAsync (UdemyProject)'
+2023-07-11 14:51:29.957 +08:00 [INF] Route matched with {action = "UpdateRegion", controller = "Regions"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] UpdateRegionAsync(System.Guid, UdemyProject.Models.DTO.UpdateRegionRequest) on controller UdemyProject.Controllers.RegionsController (UdemyProject).
+2023-07-11 14:51:29.967 +08:00 [INF] UpdateRegionAsync is executed
+2023-07-11 14:51:29.973 +08:00 [INF] Executed DbCommand (2ms) [Parameters=[@__UserID_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [r].[Id], [r].[Area], [r].[Code], [r].[Lat], [r].[Long], [r].[Name], [r].[Population]
+FROM [RegionTable] AS [r]
+WHERE [r].[Id] = @__UserID_0
+2023-07-11 14:51:29.998 +08:00 [INF] Executed DbCommand (14ms) [Parameters=[@p5='?' (DbType = Guid), @p0='?' (DbType = Double), @p1='?' (Size = 4000), @p2='?' (DbType = Double), @p3='?' (DbType = Double), @p4='?' (DbType = Int64)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+UPDATE [RegionTable] SET [Area] = @p0, [Code] = @p1, [Lat] = @p2, [Long] = @p3, [Population] = @p4
+OUTPUT 1
+WHERE [Id] = @p5;
+2023-07-11 14:51:30.007 +08:00 [INF] Executing OkObjectResult, writing value of type 'UdemyProject.Models.Domain.RegionDomain'.
+2023-07-11 14:51:30.008 +08:00 [INF] Executed action UdemyProject.Controllers.RegionsController.UpdateRegionAsync (UdemyProject) in 49.0248ms
+2023-07-11 14:51:30.010 +08:00 [INF] Executed endpoint 'UdemyProject.Controllers.RegionsController.UpdateRegionAsync (UdemyProject)'
+2023-07-11 14:51:30.011 +08:00 [INF] Request finished HTTP/2 PUT https://localhost:7227/Regions/ec1314af-c879-4919-8e33-19931ad396cb application/json-patch+json 110 - 200 135 application/json;+charset=utf-8 64.9441ms
+2023-07-11 14:51:38.811 +08:00 [INF] Request starting HTTP/2 DELETE https://localhost:7227/Regions/ec1314af-c879-4919-8e33-19931ad396cb - -
+2023-07-11 14:51:38.812 +08:00 [INF] Executing endpoint 'UdemyProject.Controllers.RegionsController.DeleteRegionAsync (UdemyProject)'
+2023-07-11 14:51:38.815 +08:00 [INF] Route matched with {action = "DeleteRegion", controller = "Regions"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] DeleteRegionAsync(System.Guid) on controller UdemyProject.Controllers.RegionsController (UdemyProject).
+2023-07-11 14:51:38.819 +08:00 [INF] DeleteRegionAsync is executed
+2023-07-11 14:51:38.830 +08:00 [INF] Executed DbCommand (6ms) [Parameters=[@__UserId_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [r].[Id], [r].[Area], [r].[Code], [r].[Lat], [r].[Long], [r].[Name], [r].[Population]
+FROM [RegionTable] AS [r]
+WHERE [r].[Id] = @__UserId_0
+2023-07-11 14:51:38.854 +08:00 [INF] Executed DbCommand (14ms) [Parameters=[@p0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+DELETE FROM [RegionTable]
+OUTPUT 1
+WHERE [Id] = @p0;
+2023-07-11 14:51:38.861 +08:00 [INF] Executing OkObjectResult, writing value of type 'UdemyProject.Models.Domain.RegionDomain'.
+2023-07-11 14:51:38.862 +08:00 [INF] Executed action UdemyProject.Controllers.RegionsController.DeleteRegionAsync (UdemyProject) in 43.8674ms
+2023-07-11 14:51:38.863 +08:00 [INF] Executed endpoint 'UdemyProject.Controllers.RegionsController.DeleteRegionAsync (UdemyProject)'
+2023-07-11 14:51:38.864 +08:00 [INF] Request finished HTTP/2 DELETE https://localhost:7227/Regions/ec1314af-c879-4919-8e33-19931ad396cb - - - 200 135 application/json;+charset=utf-8 52.4006ms
+2023-07-11 14:51:47.438 +08:00 [INF] Request starting HTTP/2 GET https://localhost:7227/Regions - -
+2023-07-11 14:51:47.439 +08:00 [INF] Executing endpoint 'UdemyProject.Controllers.RegionsController.GetAllRegionsAsync (UdemyProject)'
+2023-07-11 14:51:47.440 +08:00 [INF] Route matched with {action = "GetAllRegions", controller = "Regions"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAllRegionsAsync() on controller UdemyProject.Controllers.RegionsController (UdemyProject).
+2023-07-11 14:51:47.442 +08:00 [INF] GetAllRegionsAsync is executed
+2023-07-11 14:51:47.445 +08:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [r].[Id], [r].[Area], [r].[Code], [r].[Lat], [r].[Long], [r].[Name], [r].[Population]
+FROM [RegionTable] AS [r]
+2023-07-11 14:51:47.448 +08:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[UdemyProject.Models.Domain.RegionDomain, UdemyProject, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2023-07-11 14:51:47.449 +08:00 [INF] Executed action UdemyProject.Controllers.RegionsController.GetAllRegionsAsync (UdemyProject) in 7.2115ms
+2023-07-11 14:51:47.451 +08:00 [INF] Executed endpoint 'UdemyProject.Controllers.RegionsController.GetAllRegionsAsync (UdemyProject)'
+2023-07-11 14:51:47.455 +08:00 [INF] Request finished HTTP/2 GET https://localhost:7227/Regions - - - 200 400 application/json;+charset=utf-8 16.5243ms
+2023-07-11 14:54:22.795 +08:00 [INF] User profile is available. Using 'C:\Users\Hp\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2023-07-11 14:54:22.985 +08:00 [INF] Now listening on: https://localhost:7227
+2023-07-11 14:54:22.986 +08:00 [INF] Now listening on: http://localhost:5257
+2023-07-11 14:54:22.989 +08:00 [INF] Application started. Press Ctrl+C to shut down.
+2023-07-11 14:54:22.990 +08:00 [INF] Hosting environment: Development
+2023-07-11 14:54:22.990 +08:00 [INF] Content root path: C:\Users\Hp\Desktop\PROJECTS\dotnet\basic-asp.net-api-project\
+2023-07-11 14:54:23.374 +08:00 [INF] Request starting HTTP/2 GET https://localhost:7227/swagger/index.html - -
+2023-07-11 14:54:23.708 +08:00 [INF] Request starting HTTP/2 GET https://localhost:7227/_vs/browserLink - -
+2023-07-11 14:54:23.708 +08:00 [INF] Request starting HTTP/2 GET https://localhost:7227/_framework/aspnetcore-browser-refresh.js - -
+2023-07-11 14:54:23.718 +08:00 [INF] Request finished HTTP/2 GET https://localhost:7227/swagger/index.html - - - 200 - text/html;charset=utf-8 346.8189ms
+2023-07-11 14:54:23.718 +08:00 [INF] Request finished HTTP/2 GET https://localhost:7227/_framework/aspnetcore-browser-refresh.js - - - 200 11994 application/javascript;+charset=utf-8 9.3665ms
+2023-07-11 14:54:23.731 +08:00 [INF] Request finished HTTP/2 GET https://localhost:7227/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 22.2772ms
+2023-07-11 14:54:23.779 +08:00 [INF] Request starting HTTP/2 GET https://localhost:7227/swagger/v1/swagger.json - -
+2023-07-11 14:54:23.883 +08:00 [INF] Request finished HTTP/2 GET https://localhost:7227/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 104.8324ms
+2023-07-11 14:54:39.038 +08:00 [INF] Request starting HTTP/2 POST https://localhost:7227/api/Auth/login application/json-patch+json 63
+2023-07-11 14:54:39.102 +08:00 [INF] Executing endpoint 'UdemyProject.Controllers.AuthController.LoginAsync (UdemyProject)'
+2023-07-11 14:54:39.140 +08:00 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] LoginAsync(UdemyProject.Models.DTO.LoginRequest) on controller UdemyProject.Controllers.AuthController (UdemyProject).
+2023-07-11 14:54:40.971 +08:00 [INF] Executed DbCommand (71ms) [Parameters=[@__username_1='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [u].[Id], [u].[EmailAddress], [u].[FirstName], [u].[LastName], [u].[PasswordHash], [u].[PasswordSalt], [u].[Username]
+FROM [UsersTable] AS [u]
+WHERE [u].[Username] COLLATE SQL_Latin1_General_CP1_CS_AS = @__username_1
+2023-07-11 14:54:41.093 +08:00 [INF] Executed DbCommand (5ms) [Parameters=[@__user_Id_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SELECT [u].[Id], [u].[RoleID], [u].[UserID]
+FROM [UsersRolesTable] AS [u]
+WHERE [u].[UserID] = @__user_Id_0
+2023-07-11 14:54:41.122 +08:00 [INF] Executed DbCommand (2ms) [Parameters=[@__userrole_RoleID_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [r].[Id], [r].[Title]
+FROM [RolesTable] AS [r]
+WHERE [r].[Id] = @__userrole_RoleID_0
+2023-07-11 14:54:41.232 +08:00 [INF] Executing OkObjectResult, writing value of type 'System.String'.
+2023-07-11 14:54:41.239 +08:00 [INF] Executed action UdemyProject.Controllers.AuthController.LoginAsync (UdemyProject) in 2093.2109ms
+2023-07-11 14:54:41.242 +08:00 [INF] Executed endpoint 'UdemyProject.Controllers.AuthController.LoginAsync (UdemyProject)'
+2023-07-11 14:54:41.255 +08:00 [INF] Request finished HTTP/2 POST https://localhost:7227/api/Auth/login application/json-patch+json 63 - 200 - text/plain;+charset=utf-8 2217.5477ms
+2023-07-11 14:54:56.604 +08:00 [INF] Request starting HTTP/2 GET https://localhost:7227/Regions - -
+2023-07-11 14:54:56.670 +08:00 [INF] Executing endpoint 'UdemyProject.Controllers.RegionsController.GetAllRegionsAsync (UdemyProject)'
+2023-07-11 14:54:56.673 +08:00 [INF] Route matched with {action = "GetAllRegions", controller = "Regions"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAllRegionsAsync() on controller UdemyProject.Controllers.RegionsController (UdemyProject).
+2023-07-11 14:54:56.676 +08:00 [INF] GetAllRegionsAsync is executed
+2023-07-11 14:54:56.684 +08:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [r].[Id], [r].[Area], [r].[Code], [r].[Lat], [r].[Long], [r].[Name], [r].[Population]
+FROM [RegionTable] AS [r]
+2023-07-11 14:54:56.704 +08:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[UdemyProject.Models.Domain.RegionDomain, UdemyProject, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2023-07-11 14:54:56.743 +08:00 [INF] Executed action UdemyProject.Controllers.RegionsController.GetAllRegionsAsync (UdemyProject) in 67.9559ms
+2023-07-11 14:54:56.744 +08:00 [INF] Executed endpoint 'UdemyProject.Controllers.RegionsController.GetAllRegionsAsync (UdemyProject)'
+2023-07-11 14:54:56.745 +08:00 [INF] Request finished HTTP/2 GET https://localhost:7227/Regions - - - 200 400 application/json;+charset=utf-8 140.9992ms
+2023-07-11 15:11:09.285 +08:00 [INF] User profile is available. Using 'C:\Users\Hp\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2023-07-11 15:11:09.616 +08:00 [INF] Now listening on: https://localhost:7227
+2023-07-11 15:11:09.617 +08:00 [INF] Now listening on: http://localhost:5257
+2023-07-11 15:11:09.621 +08:00 [INF] Application started. Press Ctrl+C to shut down.
+2023-07-11 15:11:09.621 +08:00 [INF] Hosting environment: Development
+2023-07-11 15:11:09.622 +08:00 [INF] Content root path: C:\Users\Hp\Desktop\PROJECTS\dotnet\basic-asp.net-api-project\
+2023-07-11 15:11:10.310 +08:00 [INF] Request starting HTTP/2 GET https://localhost:7227/swagger/index.html - -
+2023-07-11 15:11:10.646 +08:00 [INF] Request starting HTTP/2 GET https://localhost:7227/_vs/browserLink - -
+2023-07-11 15:11:10.646 +08:00 [INF] Request starting HTTP/2 GET https://localhost:7227/_framework/aspnetcore-browser-refresh.js - -
+2023-07-11 15:11:10.656 +08:00 [INF] Request finished HTTP/2 GET https://localhost:7227/swagger/index.html - - - 200 - text/html;charset=utf-8 349.7263ms
+2023-07-11 15:11:10.656 +08:00 [INF] Request finished HTTP/2 GET https://localhost:7227/_framework/aspnetcore-browser-refresh.js - - - 200 11994 application/javascript;+charset=utf-8 8.1231ms
+2023-07-11 15:11:10.671 +08:00 [INF] Request finished HTTP/2 GET https://localhost:7227/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 24.0441ms
+2023-07-11 15:11:10.719 +08:00 [INF] Request starting HTTP/2 GET https://localhost:7227/swagger/v1/swagger.json - -
+2023-07-11 15:11:10.837 +08:00 [INF] Request finished HTTP/2 GET https://localhost:7227/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 118.5210ms
+2023-07-11 15:30:44.154 +08:00 [INF] User profile is available. Using 'C:\Users\Hp\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2023-07-11 15:30:44.406 +08:00 [INF] Now listening on: https://localhost:7227
+2023-07-11 15:30:44.407 +08:00 [INF] Now listening on: http://localhost:5257
+2023-07-11 15:30:44.410 +08:00 [INF] Application started. Press Ctrl+C to shut down.
+2023-07-11 15:30:44.410 +08:00 [INF] Hosting environment: Development
+2023-07-11 15:30:44.411 +08:00 [INF] Content root path: C:\Users\Hp\Desktop\PROJECTS\dotnet\basic-asp.net-api-project\
+2023-07-11 15:30:44.993 +08:00 [INF] Request starting HTTP/2 GET https://localhost:7227/swagger/index.html - -
+2023-07-11 15:30:45.332 +08:00 [INF] Request starting HTTP/2 GET https://localhost:7227/_vs/browserLink - -
+2023-07-11 15:30:45.332 +08:00 [INF] Request starting HTTP/2 GET https://localhost:7227/_framework/aspnetcore-browser-refresh.js - -
+2023-07-11 15:30:45.342 +08:00 [INF] Request finished HTTP/2 GET https://localhost:7227/swagger/index.html - - - 200 - text/html;charset=utf-8 352.9982ms
+2023-07-11 15:30:45.342 +08:00 [INF] Request finished HTTP/2 GET https://localhost:7227/_framework/aspnetcore-browser-refresh.js - - - 200 11994 application/javascript;+charset=utf-8 9.1700ms
+2023-07-11 15:30:45.352 +08:00 [INF] Request finished HTTP/2 GET https://localhost:7227/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 19.9677ms
+2023-07-11 15:30:45.404 +08:00 [INF] Request starting HTTP/2 GET https://localhost:7227/swagger/v1/swagger.json - -
+2023-07-11 15:30:45.507 +08:00 [INF] Request finished HTTP/2 GET https://localhost:7227/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 102.4634ms
+2023-07-11 15:36:53.017 +08:00 [INF] User profile is available. Using 'C:\Users\Hp\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2023-07-11 15:36:53.205 +08:00 [INF] Now listening on: https://localhost:7227
+2023-07-11 15:36:53.206 +08:00 [INF] Now listening on: http://localhost:5257
+2023-07-11 15:36:53.209 +08:00 [INF] Application started. Press Ctrl+C to shut down.
+2023-07-11 15:36:53.210 +08:00 [INF] Hosting environment: Development
+2023-07-11 15:36:53.211 +08:00 [INF] Content root path: C:\Users\Hp\Desktop\PROJECTS\dotnet\basic-asp.net-api-project\
+2023-07-11 15:36:53.648 +08:00 [INF] Request starting HTTP/2 GET https://localhost:7227/swagger/index.html - -
+2023-07-11 15:36:53.970 +08:00 [INF] Request starting HTTP/2 GET https://localhost:7227/_framework/aspnetcore-browser-refresh.js - -
+2023-07-11 15:36:53.970 +08:00 [INF] Request starting HTTP/2 GET https://localhost:7227/_vs/browserLink - -
+2023-07-11 15:36:53.980 +08:00 [INF] Request finished HTTP/2 GET https://localhost:7227/swagger/index.html - - - 200 - text/html;charset=utf-8 331.2261ms
+2023-07-11 15:36:53.980 +08:00 [INF] Request finished HTTP/2 GET https://localhost:7227/_framework/aspnetcore-browser-refresh.js - - - 200 11994 application/javascript;+charset=utf-8 5.1008ms
+2023-07-11 15:36:53.992 +08:00 [INF] Request finished HTTP/2 GET https://localhost:7227/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 22.0993ms
+2023-07-11 15:36:54.041 +08:00 [INF] Request starting HTTP/2 GET https://localhost:7227/swagger/v1/swagger.json - -
+2023-07-11 15:36:54.148 +08:00 [INF] Request finished HTTP/2 GET https://localhost:7227/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 107.7418ms
+2023-07-11 15:47:29.367 +08:00 [INF] User profile is available. Using 'C:\Users\Hp\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2023-07-11 15:47:29.542 +08:00 [INF] Now listening on: https://localhost:7227
+2023-07-11 15:47:29.543 +08:00 [INF] Now listening on: http://localhost:5257
+2023-07-11 15:47:29.546 +08:00 [INF] Application started. Press Ctrl+C to shut down.
+2023-07-11 15:47:29.547 +08:00 [INF] Hosting environment: Development
+2023-07-11 15:47:29.548 +08:00 [INF] Content root path: C:\Users\Hp\Desktop\PROJECTS\dotnet\basic-asp.net-api-project\
+2023-07-11 15:47:30.273 +08:00 [INF] Request starting HTTP/2 GET https://localhost:7227/swagger/index.html - -
+2023-07-11 15:47:30.609 +08:00 [INF] Request starting HTTP/2 GET https://localhost:7227/_vs/browserLink - -
+2023-07-11 15:47:30.609 +08:00 [INF] Request starting HTTP/2 GET https://localhost:7227/_framework/aspnetcore-browser-refresh.js - -
+2023-07-11 15:47:30.628 +08:00 [INF] Request finished HTTP/2 GET https://localhost:7227/_framework/aspnetcore-browser-refresh.js - - - 200 11994 application/javascript;+charset=utf-8 17.3356ms
+2023-07-11 15:47:30.629 +08:00 [INF] Request finished HTTP/2 GET https://localhost:7227/swagger/index.html - - - 200 - text/html;charset=utf-8 360.0241ms
+2023-07-11 15:47:30.644 +08:00 [INF] Request finished HTTP/2 GET https://localhost:7227/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 34.6060ms
+2023-07-11 15:47:30.703 +08:00 [INF] Request starting HTTP/2 GET https://localhost:7227/swagger/v1/swagger.json - -
+2023-07-11 15:47:30.807 +08:00 [INF] Request finished HTTP/2 GET https://localhost:7227/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 103.2501ms
+2023-07-11 15:47:37.429 +08:00 [INF] Request starting HTTP/2 GET https://localhost:7227/Walks - -
+2023-07-11 15:47:37.505 +08:00 [INF] Authorization failed. These requirements were not met:
+RolesAuthorizationRequirement:User.IsInRole must be true for one of the following roles: (reader|writer)
+2023-07-11 15:47:37.512 +08:00 [INF] AuthenticationScheme: Bearer was challenged.
+2023-07-11 15:47:37.512 +08:00 [INF] Request finished HTTP/2 GET https://localhost:7227/Walks - - - 401 0 - 83.4755ms
+2023-07-11 15:47:55.790 +08:00 [INF] Request starting HTTP/2 POST https://localhost:7227/api/Auth/login application/json-patch+json 63
+2023-07-11 15:47:55.797 +08:00 [INF] Executing endpoint 'UdemyProject.Controllers.AuthController.LoginAsync (UdemyProject)'
+2023-07-11 15:47:55.836 +08:00 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] LoginAsync(UdemyProject.Models.DTO.LoginRequest) on controller UdemyProject.Controllers.AuthController (UdemyProject).
+2023-07-11 15:47:57.853 +08:00 [INF] Executed DbCommand (78ms) [Parameters=[@__username_1='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [u].[Id], [u].[EmailAddress], [u].[FirstName], [u].[LastName], [u].[PasswordHash], [u].[PasswordSalt], [u].[Username]
+FROM [UsersTable] AS [u]
+WHERE [u].[Username] COLLATE SQL_Latin1_General_CP1_CS_AS = @__username_1
+2023-07-11 15:47:57.972 +08:00 [INF] Executed DbCommand (5ms) [Parameters=[@__user_Id_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SELECT [u].[Id], [u].[RoleID], [u].[UserID]
+FROM [UsersRolesTable] AS [u]
+WHERE [u].[UserID] = @__user_Id_0
+2023-07-11 15:47:58.007 +08:00 [INF] Executed DbCommand (3ms) [Parameters=[@__userrole_RoleID_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [r].[Id], [r].[Title]
+FROM [RolesTable] AS [r]
+WHERE [r].[Id] = @__userrole_RoleID_0
+2023-07-11 15:47:58.124 +08:00 [INF] Executing OkObjectResult, writing value of type 'System.String'.
+2023-07-11 15:47:58.130 +08:00 [INF] Executed action UdemyProject.Controllers.AuthController.LoginAsync (UdemyProject) in 2287.8771ms
+2023-07-11 15:47:58.133 +08:00 [INF] Executed endpoint 'UdemyProject.Controllers.AuthController.LoginAsync (UdemyProject)'
+2023-07-11 15:47:58.146 +08:00 [INF] Request finished HTTP/2 POST https://localhost:7227/api/Auth/login application/json-patch+json 63 - 200 - text/plain;+charset=utf-8 2355.8711ms
+2023-07-11 15:48:11.906 +08:00 [INF] Request starting HTTP/2 GET https://localhost:7227/Walks - -
+2023-07-11 15:48:11.971 +08:00 [INF] Executing endpoint 'UdemyProject.Controllers.WalksController.GetAllWalksAsync (UdemyProject)'
+2023-07-11 15:48:11.974 +08:00 [INF] Route matched with {action = "GetAllWalks", controller = "Walks"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAllWalksAsync() on controller UdemyProject.Controllers.WalksController (UdemyProject).
+2023-07-11 15:48:11.978 +08:00 [INF] GetAllWalksAsync is executed
+2023-07-11 15:48:12.036 +08:00 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [w].[Id], [w].[DifficultyId], [w].[Length], [w].[Name], [w].[RegionId], [r].[Id], [r].[Area], [r].[Code], [r].[Lat], [r].[Long], [r].[Name], [r].[Population], [d].[Id], [d].[Code]
+FROM [WalkTable] AS [w]
+INNER JOIN [RegionTable] AS [r] ON [w].[RegionId] = [r].[Id]
+INNER JOIN [DifficultyTable] AS [d] ON [w].[DifficultyId] = [d].[Id]
+2023-07-11 15:48:12.040 +08:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[UdemyProject.Models.Domain.WalkDomain, UdemyProject, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2023-07-11 15:48:12.066 +08:00 [INF] Executed action UdemyProject.Controllers.WalksController.GetAllWalksAsync (UdemyProject) in 90.5031ms
+2023-07-11 15:48:12.067 +08:00 [INF] Executed endpoint 'UdemyProject.Controllers.WalksController.GetAllWalksAsync (UdemyProject)'
+2023-07-11 15:48:12.069 +08:00 [INF] Request finished HTTP/2 GET https://localhost:7227/Walks - - - 200 2 application/json;+charset=utf-8 163.7727ms
+2023-07-11 18:55:00.515 +08:00 [INF] User profile is available. Using 'C:\Users\Hp\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2023-07-11 18:55:00.862 +08:00 [INF] Now listening on: https://localhost:7227
+2023-07-11 18:55:00.863 +08:00 [INF] Now listening on: http://localhost:5257
+2023-07-11 18:55:00.868 +08:00 [INF] Application started. Press Ctrl+C to shut down.
+2023-07-11 18:55:00.869 +08:00 [INF] Hosting environment: Development
+2023-07-11 18:55:00.870 +08:00 [INF] Content root path: C:\Users\Hp\Desktop\PROJECTS\dotnet\basic-asp.net-api-project\
+2023-07-11 18:55:01.484 +08:00 [INF] Request starting HTTP/2 GET https://localhost:7227/swagger/index.html - -
+2023-07-11 18:55:01.895 +08:00 [INF] Request starting HTTP/2 GET https://localhost:7227/_vs/browserLink - -
+2023-07-11 18:55:01.895 +08:00 [INF] Request starting HTTP/2 GET https://localhost:7227/_framework/aspnetcore-browser-refresh.js - -
+2023-07-11 18:55:01.925 +08:00 [INF] Request finished HTTP/2 GET https://localhost:7227/swagger/index.html - - - 200 - text/html;charset=utf-8 421.9139ms
+2023-07-11 18:55:01.926 +08:00 [INF] Request finished HTTP/2 GET https://localhost:7227/_framework/aspnetcore-browser-refresh.js - - - 200 11994 application/javascript;+charset=utf-8 31.3598ms
+2023-07-11 18:55:01.941 +08:00 [INF] Request finished HTTP/2 GET https://localhost:7227/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 46.7728ms
+2023-07-11 18:55:01.986 +08:00 [INF] Request starting HTTP/2 GET https://localhost:7227/swagger/v1/swagger.json - -
+2023-07-11 18:55:02.122 +08:00 [INF] Request finished HTTP/2 GET https://localhost:7227/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 135.9587ms
+2023-07-11 19:03:07.441 +08:00 [INF] User profile is available. Using 'C:\Users\Hp\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2023-07-11 19:03:07.690 +08:00 [INF] Now listening on: https://localhost:7227
+2023-07-11 19:03:07.691 +08:00 [INF] Now listening on: http://localhost:5257
+2023-07-11 19:03:07.703 +08:00 [INF] Application started. Press Ctrl+C to shut down.
+2023-07-11 19:03:07.704 +08:00 [INF] Hosting environment: Development
+2023-07-11 19:03:07.705 +08:00 [INF] Content root path: C:\Users\Hp\Desktop\PROJECTS\dotnet\basic-asp.net-api-project\
+2023-07-11 19:03:08.263 +08:00 [INF] Request starting HTTP/2 GET https://localhost:7227/_vs/browserLink - -
+2023-07-11 19:03:08.263 +08:00 [INF] Request starting HTTP/2 GET https://localhost:7227/swagger/index.html - -
+2023-07-11 19:03:08.263 +08:00 [INF] Request starting HTTP/2 GET https://localhost:7227/_framework/aspnetcore-browser-refresh.js - -
+2023-07-11 19:03:08.296 +08:00 [INF] Request finished HTTP/2 GET https://localhost:7227/_framework/aspnetcore-browser-refresh.js - - - 200 11994 application/javascript;+charset=utf-8 39.1685ms
+2023-07-11 19:03:08.370 +08:00 [INF] Request finished HTTP/2 GET https://localhost:7227/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 113.6843ms
+2023-07-11 19:03:08.416 +08:00 [INF] Request starting HTTP/2 GET https://localhost:7227/swagger/v1/swagger.json - -
+2023-07-11 19:03:08.534 +08:00 [INF] Request finished HTTP/2 GET https://localhost:7227/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 118.3049ms
+2023-07-11 19:03:08.626 +08:00 [INF] Request finished HTTP/2 GET https://localhost:7227/swagger/index.html - - - 200 - text/html;charset=utf-8 370.4268ms
+2023-07-11 19:03:08.627 +08:00 [INF] Request starting HTTP/2 GET https://localhost:7227/_framework/aspnetcore-browser-refresh.js - -
+2023-07-11 19:03:08.631 +08:00 [INF] Request starting HTTP/2 GET https://localhost:7227/_vs/browserLink - -
+2023-07-11 19:03:08.631 +08:00 [INF] Request finished HTTP/2 GET https://localhost:7227/_framework/aspnetcore-browser-refresh.js - - - 200 11994 application/javascript;+charset=utf-8 4.3150ms
+2023-07-11 19:03:08.643 +08:00 [INF] Request finished HTTP/2 GET https://localhost:7227/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 11.9543ms
+2023-07-11 19:03:08.710 +08:00 [INF] Request starting HTTP/2 GET https://localhost:7227/swagger/v1/swagger.json - -
+2023-07-11 19:03:08.714 +08:00 [INF] Request finished HTTP/2 GET https://localhost:7227/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 3.9590ms

@@ -2,18 +2,12 @@
 {
     public class RegionDTO
     {
-        public Guid RegionId { get; set; }
 
-        public string RegionCode { get; set; }
-
-        public string RegionName { get; set; }
-
-        public double RegionArea { get; set; }
-
-        public double RegionLat { get; set; }
-
-        public double RegionLong { get; set; }
-
-        public long RegionPopulation { get; set; }
+        public string? Code { get; set; }
+        public string? Name { get; set; }
+        public double Area { get; set; }
+        public double Lat { get; set; }
+        public double Long { get; set; }
+        public long Population { get; set; }
     }
 }

@@ -12,8 +12,8 @@ using UdemyProject.Data;
 namespace UdemyProject.Migrations
 {
     [DbContext(typeof(DBContextClass))]
-    [Migration("20230402130941_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20230705025518_Inital Migration")]
+    partial class InitalMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -38,6 +38,35 @@ namespace UdemyProject.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("DifficultyTable");
+                });
+
+            modelBuilder.Entity("UdemyProject.Models.Domain.ImageDomain", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("FileDescription")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FileExtension")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FileName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FilePath")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("FileSizeInBytes")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ImagesTable");
                 });
 
             modelBuilder.Entity("UdemyProject.Models.Domain.RegionDomain", b =>

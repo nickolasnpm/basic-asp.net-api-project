@@ -6,10 +6,21 @@ using UdemyProject.Repositories;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.OpenApi.Models;
+using Microsoft.Extensions.FileProviders;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
 //builder.Services.AddControllers(). //Original for one controller
+
+var logger = new LoggerConfiguration()
+    .WriteTo.Console()
+    .WriteTo.File("logFolder/udemyproject_log.txt", rollingInterval: RollingInterval.Day) //log info will be stored to this folder with this file name per day
+    .MinimumLevel.Information()
+    .CreateLogger();
+
+builder.Logging.ClearProviders();  
+builder.Logging.AddSerilog(logger);
 
 builder.Services.AddControllers().AddNewtonsoftJson(options => 
 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
@@ -17,6 +28,8 @@ options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoop
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddHttpContextAccessor();
+
 builder.Services.AddSwaggerGen(options =>
 {
     var securityScheme = new OpenApiSecurityScheme
@@ -55,6 +68,7 @@ builder.Services.AddScoped<IWalkRepository, WalkRepository>();
 builder.Services.AddScoped<IDifficultyRepository, DifficultyRepository>();
 builder.Services.AddScoped<ITokenHandler, UdemyProject.Repositories.TokenHandler>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IImageRepository, LocalImageRepository>();
 
 // builder.Services.AddSingleton<IUserRepository, UserRepository>(); // No longer use since we use dynamic data saved in DB
 
@@ -87,6 +101,12 @@ app.UseHttpsRedirection();
 app.UseAuthentication(); // make sure the app is authenticated before we go for the authorization
 
 app.UseAuthorization();
+
+app.UseStaticFiles(new StaticFileOptions 
+{
+    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "Images")),
+    RequestPath = "/Images"
+});
 
 app.MapControllers();
 

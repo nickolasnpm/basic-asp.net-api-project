@@ -2,9 +2,9 @@
 
 namespace UdemyProject.Validator
 {
-    public class AddWalkRequestValidator: AbstractValidator<Models.DTO.AddWalkRequest>
+    public class WalkDTOValidator: AbstractValidator<Models.DTO.WalkDTO>
     {
-        public AddWalkRequestValidator()
+        public WalkDTOValidator()
         {
             RuleFor(x => x.Name).NotEmpty();
             RuleFor(x => x.Length).NotEmpty();

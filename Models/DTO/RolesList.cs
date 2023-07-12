@@ -2,7 +2,7 @@
 
 namespace UdemyProject.Models.DTO
 {
-    public class RoleList
+    public class RolesList
     {
         private string _title;
 

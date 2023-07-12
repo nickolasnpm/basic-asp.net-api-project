@@ -40,36 +40,29 @@ namespace UdemyProject.Repositories
         {
             WalkDomain? existingwalk = await _dbContextClasses.WalkTable.FindAsync(id);
 
-            if (existingwalk == null) 
+            if (existingwalk != null) 
             {
-                return null;
+                existingwalk.Name = walkdomain.Name;
+                existingwalk.Length = walkdomain.Length;
+                existingwalk.RegionId = walkdomain.RegionId;
+                existingwalk.DifficultyId = walkdomain.DifficultyId;
+
+                await _dbContextClasses.SaveChangesAsync();
             }
-            
-            existingwalk.Name = walkdomain.Name;
-            existingwalk.Length = walkdomain.Length;
-            existingwalk.RegionId = walkdomain.RegionId;
-            existingwalk.DifficultyId = walkdomain.DifficultyId;
-                
-            await _dbContextClasses.SaveChangesAsync();
 
             return existingwalk;
-
         } 
 
         public async Task<WalkDomain> DeleteAsync(Guid id)
         {
             WalkDomain? walkDomain = await _dbContextClasses.WalkTable.FirstOrDefaultAsync(x => x.Id == id);
 
-            if (walkDomain == null)
-            {
-                return null;
-            }
-            else
+            if (walkDomain != null)
             {
                 _dbContextClasses.WalkTable.Remove(walkDomain);
+                await _dbContextClasses.SaveChangesAsync();
             }
 
-            await _dbContextClasses.SaveChangesAsync();
             return walkDomain;
         }
     }

@@ -1,9 +1,6 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Data;
 using UdemyProject.Models.Domain;
-using UdemyProject.Models.DTO;
 using UdemyProject.Repositories;
 
 namespace UdemyProject.Controllers
@@ -13,115 +10,129 @@ namespace UdemyProject.Controllers
     public class WalksController : Controller
     {
         private readonly IWalkRepository _walkRepository;
-        private readonly IMapper _mapper;
         private readonly IRegionRepository _regionRepository; 
         private readonly IDifficultyRepository _difficultyRepository;
-        public WalksController(IWalkRepository walkRepository, IMapper mapper, IRegionRepository regionRepository, IDifficultyRepository difficultyRepository)
+        private readonly ILogger<DifficultyController> _logger;
+        public WalksController(IWalkRepository walkRepository, IRegionRepository regionRepository, IDifficultyRepository difficultyRepository, ILogger<DifficultyController> logger)
         {
             _walkRepository = walkRepository;
-            _mapper = mapper;
             _regionRepository = regionRepository;
             _difficultyRepository = difficultyRepository;
+            _logger = logger;
         }
 
         [HttpGet]
         [Authorize(Roles = "reader,writer")]
         public async Task<IActionResult> GetAllWalksAsync()
         {
-            IEnumerable<Models.Domain.WalkDomain> walkDomain = await _walkRepository.GetAllAsync();
+            try
+            {
+                _logger.LogInformation("GetAllWalksAsync is executed");
 
-            IEnumerable<Models.DTO.WalkDTO> walksDTO = _mapper.Map<List<Models.DTO.WalkDTO>>(walkDomain);
-
-            return Ok(walksDTO);
-
+                IEnumerable<Models.Domain.WalkDomain> walkDomain = await _walkRepository.GetAllAsync();
+                return Ok(walkDomain);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, e.Message);
+                return BadRequest(e);
+            }
+           
         }
 
         [HttpGet]
         [Route("{id:guid}")]
-        [ActionName("GetWalks")]
         [Authorize(Roles = "reader,writer")]
         public async Task<IActionResult> GetWalksAsync(Guid id)
         {
-            WalkDomain? walkDomain = await _walkRepository.GetAsync(id);
-
-            if (walkDomain == null)
+            try
             {
-                return NotFound();
+                _logger.LogInformation("GetWalksAsync is executed");
+
+                WalkDomain? walkDomain = await _walkRepository.GetAsync(id);
+
+                if (walkDomain == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(walkDomain);
             }
-
-            WalkDTO? walksDTO = _mapper.Map<Models.DTO.WalkDTO>(walkDomain);
-
-            return Ok(walksDTO);
+            catch (Exception e)
+            {
+                _logger.LogError(e, e.Message);
+                return BadRequest(e);
+            }
         }
 
         [HttpPost]
         [Authorize(Roles = "writer")]
-        public async Task<IActionResult> AddWalkAsync([FromBody] Models.DTO.AddWalkRequest addWalkRequest)
+        public async Task<IActionResult> AddWalkAsync([FromBody] Models.DTO.WalkDTO walkDTO)
         {
-
-            if (!(await ValidateAddWalkAsync (addWalkRequest)))
+            try
             {
-                return BadRequest(ModelState);
+                _logger.LogInformation("AddWalkAsync is executed");
+
+                if (!(await ValidateAddWalkAsync(walkDTO)))
+                {
+                    return BadRequest(ModelState);
+                }
+
+                WalkDomain? walkDomain = new Models.Domain.WalkDomain
+                {
+                    Name = walkDTO.Name,
+                    Length = walkDTO.Length,
+                    RegionId = walkDTO.RegionId,
+                    DifficultyId = walkDTO.DifficultyId,
+                };
+
+                walkDomain = await _walkRepository.AddAsync(walkDomain);
+
+                return Ok(walkDomain);
             }
-            // Additional to AddWalkRequestValidator. Required this validation to complement limited capacity of Fluent Validation
-
-            WalkDomain? walkDomain = new Models.Domain.WalkDomain
+            catch (Exception e)
             {
-                Name = addWalkRequest.Name,
-                Length = addWalkRequest.Length,
-                RegionId = addWalkRequest.RegionId,
-                DifficultyId = addWalkRequest.DifficultyId,
-            };
-
-            walkDomain = await _walkRepository.AddAsync(walkDomain);
-
-            WalkDTO WalkDTO = new Models.DTO.WalkDTO
-            {
-                WalkId = walkDomain.Id,
-                WalkName = walkDomain.Name,
-                WalkLength = walkDomain.Length,
-                WalkRegionId = walkDomain.RegionId,
-                WalkDifficultyId = walkDomain.DifficultyId,
-            };
-
-            return CreatedAtAction("GetWalks", new { Id = WalkDTO.WalkId }, WalkDTO);
+                _logger.LogError(e, e.Message);
+                return BadRequest(e);
+            }
         }
 
         [HttpPut]
         [Route("{id:guid}")]
         [Authorize(Roles = "writer")]
-        public async Task<IActionResult> UpdateWalkAsync([FromRoute] Guid id, [FromBody] Models.DTO.UpdateWalkRequest updateWalkRequest)
+        public async Task<IActionResult> UpdateWalkAsync([FromRoute] Guid id, [FromBody] Models.DTO.WalkDTO walkDTO)
         {
-            if (!(await ValidateUpdateWalkAsync(updateWalkRequest))) 
-            { 
-                return BadRequest(ModelState); 
+            try
+            {
+                _logger.LogInformation("UpdateWalkAsync is executed");
+
+                if (!(await ValidateUpdateWalkAsync(walkDTO)))
+                {
+                    return BadRequest(ModelState);
+                }
+
+                WalkDomain? walkDomain = new Models.Domain.WalkDomain
+                {
+                    Name = walkDTO.Name,
+                    Length = walkDTO.Length,
+                    RegionId = walkDTO.RegionId,
+                    DifficultyId = walkDTO.DifficultyId,
+                };
+
+                walkDomain = await _walkRepository.UpdateAsync(id, walkDomain);
+
+                if (walkDomain == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(walkDomain);
             }
-
-            WalkDomain? walkDomain = new Models.Domain.WalkDomain
+            catch (Exception e)
             {
-                Name = updateWalkRequest.Name,
-                Length = updateWalkRequest.Length,
-                RegionId = updateWalkRequest.RegionId,
-                DifficultyId = updateWalkRequest.DifficultyId,
-            };
-
-           walkDomain = await _walkRepository.UpdateAsync(id, walkDomain);
-
-            if (walkDomain == null)
-            {
-                return NotFound();
+                _logger.LogError(e, e.Message);
+                return BadRequest(e);
             }
-
-            WalkDTO? walkDTO = new Models.DTO.WalkDTO
-            {
-                WalkId = walkDomain.Id,
-                WalkName = walkDomain.Name,
-                WalkLength = walkDomain.Length,
-                WalkRegionId = walkDomain.RegionId,
-                WalkDifficultyId = walkDomain.DifficultyId,
-            };
-
-            return Ok(walkDTO);
         }
 
         [HttpDelete]
@@ -129,35 +140,44 @@ namespace UdemyProject.Controllers
         [Authorize(Roles = "writer")]
         public async Task<IActionResult> DeleteWalkAsync(Guid id)
         {
-            WalkDomain? walkDomain = await _walkRepository.DeleteAsync(id);
+            try
+            {
+                _logger.LogInformation("DeleteWalkAsync is executed");
 
-            if (walkDomain == null) 
-            { 
-                return NotFound(); 
+                WalkDomain? walkDomain = await _walkRepository.DeleteAsync(id);
+
+                if (walkDomain == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(walkDomain);
             }
-
-            WalkDTO? walkDTO = _mapper.Map<Models.DTO.WalkDTO>(walkDomain);
-
-            return Ok(walkDTO);
+            catch (Exception e)
+            {
+                _logger.LogError(e, e.Message);
+                return BadRequest(e);
+            }
+            
         }
 
         #region Private : Data Validation
 
-        private async Task<bool> ValidateAddWalkAsync (Models.DTO.AddWalkRequest addWalkRequest)
+        private async Task<bool> ValidateAddWalkAsync (Models.DTO.WalkDTO walkDTO)
         {    
 
-            RegionDomain? region = await _regionRepository.GetAsync(addWalkRequest.RegionId);
+            RegionDomain? region = await _regionRepository.GetAsync(walkDTO.RegionId);
 
             if (region == null)
             {
-                ModelState.AddModelError(nameof(addWalkRequest.RegionId), $"{nameof(addWalkRequest.RegionId)} is Invalid");
+                ModelState.AddModelError(nameof(walkDTO.RegionId), $"{nameof(walkDTO.RegionId)} is Invalid");
             }
 
-            DifficultyDomain? difficulty = await _difficultyRepository.GetAsync(addWalkRequest.DifficultyId);
+            DifficultyDomain? difficulty = await _difficultyRepository.GetAsync(walkDTO.DifficultyId);
 
             if (difficulty == null)
             {
-                ModelState.AddModelError(nameof(addWalkRequest.DifficultyId), $"{nameof(addWalkRequest.DifficultyId)} is Invalid");
+                ModelState.AddModelError(nameof(walkDTO.DifficultyId), $"{nameof(walkDTO.DifficultyId)} is Invalid");
             }
 
             if (ModelState.ErrorCount > 0)
@@ -170,21 +190,21 @@ namespace UdemyProject.Controllers
             }
         }
 
-        private async Task<bool> ValidateUpdateWalkAsync (Models.DTO.UpdateWalkRequest updateWalkRequest)
+        private async Task<bool> ValidateUpdateWalkAsync (Models.DTO.WalkDTO walkDTO)
         {
 
-            RegionDomain? region = await _regionRepository.GetAsync(updateWalkRequest.RegionId);
+            RegionDomain? region = await _regionRepository.GetAsync(walkDTO.RegionId);
 
             if (region == null)
             {
-                ModelState.AddModelError(nameof(updateWalkRequest.RegionId), $"{nameof(updateWalkRequest.RegionId)} is Invalid");
+                ModelState.AddModelError(nameof(walkDTO.RegionId), $"{nameof(walkDTO.RegionId)} is Invalid");
             }
 
-            DifficultyDomain? difficulty = await _difficultyRepository.GetAsync(updateWalkRequest.DifficultyId);
+            DifficultyDomain? difficulty = await _difficultyRepository.GetAsync(walkDTO.DifficultyId);
 
             if (difficulty == null)
             {
-                ModelState.AddModelError(nameof(updateWalkRequest.DifficultyId), $"{nameof(updateWalkRequest.DifficultyId)} is Invalid");
+                ModelState.AddModelError(nameof(walkDTO.DifficultyId), $"{nameof(walkDTO.DifficultyId)} is Invalid");
             }
 
             if (ModelState.ErrorCount > 0)

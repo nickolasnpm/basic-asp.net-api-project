@@ -2,8 +2,6 @@
 {
     public class DifficultyDTO
     {
-        public Guid DifficultyId { get; set; }
-
-        public string DifficultyCode { get; set; }
+        public string Code { get; set; }
     }
 }
